@@ -4,3 +4,11 @@
   padding-bottom:80px;
   font-family:'Source Sans Pro', sans-serif;
 }
+
+
+.logo {
+	background: url('../img/catalog/skystore_logo.png') no-repeat 0px 5px;
+	width: 70px;
+	height: 50px;
+	alt=""
+}

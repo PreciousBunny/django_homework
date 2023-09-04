@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,11 +10,11 @@
 </head>
 <body>
     <div class="header-blue">
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-dark border-bottom box-shadow">
-    <h5 class="my-0 mr-md-auto font-weight-normal"><img src="/static/img/catalog/skystore_logo.png" width="70" height="50" alt=""></h5>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-dark border-bottom border-warning box-shadow">
+ <h5 class="my-0 mr-md-auto font-weight-normal p-0"><a href="{% url 'catalog:home' %}"><div class="logo"></div></a></h5>
     <nav class="ms-5">
-        <a class="p-2 btn btn-outline-primary" href="/">Каталог</a>
-        <a class="p-2 btn btn-outline-primary" href="/contacts/">Контакты</a>
+        <a class="p-2 btn btn-outline-primary border-warning mx-1" href="{% url 'catalog:all_products' %}">Каталог</a>
+        <a class="p-2 btn btn-outline-primary border-warning" href="{% url 'catalog:contacts' %}">Контакты</a>
     </nav>
 </div>
 
@@ -23,7 +24,7 @@
 
 <div class="container">
 
-    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+    <footer class="pt-4 my-md-5 pt-md-5 border-top border-warning">
         <div class="row">
             <div class="col-12 col-md">
                 SkyStore
@@ -52,10 +53,10 @@
                 </ul>
             </div>
         </div>
-    </div>
+
     </footer>
 </div>
-
+    </div>
 <script src="/static/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

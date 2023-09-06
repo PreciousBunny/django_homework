@@ -4,12 +4,12 @@ import sys
 sys.path.append(os.getcwd())
 import json
 from django_homework.settings import BASE_DIR
-
 import psycopg2
 from django.core.management.base import BaseCommand
-
 from catalog.models import Product, Category
 
+
+# attention! execute the program with the command: > python manage.py fill
 
 class Command(BaseCommand):
 

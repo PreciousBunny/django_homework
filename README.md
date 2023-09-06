@@ -46,7 +46,7 @@ sudo -u postgres psql
 ```
 12) Создать базу данных с помощью следующей команды:
 ```bash
-CREATE DATABASE catalog;
+create database catalog;
 ```
 13) Выйти.
 ```bash

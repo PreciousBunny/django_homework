@@ -19,7 +19,7 @@ class Category(models.Model):
         """Класс мета-настроек"""
         verbose_name = 'категория'
         verbose_name_plural = 'категории'
-        ordering = ('name',)  # сортировка, '-name' - сортировка в обратном порядке
+        ordering = ('name', )  # сортировка, '-name' - сортировка в обратном порядке
 
 
 class Product(models.Model):
@@ -32,8 +32,10 @@ class Product(models.Model):
     creation_date = models.DateField(verbose_name='Дата создания', auto_now_add=True)
     modification_date = models.DateField(verbose_name='Дата последнего изменения', auto_now=True)
 
+    is_active = models.BooleanField(default=True, verbose_name='Доработка программы под ваши требования')
+
     def __str__(self):
-        return f'{self.name}'  # ,{self.category}, {self.price}, {self.modification_date}'
+        return f'{self.name}',  # {self.category}, {self.price}, {self.modification_date}'
     
     # def get_absolute_url(self):
     #     return reverse('product', kwargs={'product_id': self.pk})

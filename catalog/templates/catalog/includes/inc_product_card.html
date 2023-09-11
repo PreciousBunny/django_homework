@@ -12,9 +12,11 @@
                         <ul class="list-unstyled mt-3 mb-6 text-center">
                             <li>{{object.description|slice:":100"}}</li>
                         </ul>
-                        <button type="button" class="btn btn-lg btn-block border-success btn-primary"><a class="text-warning" href="mailto:my_danny@mail.ru" target="_blank" title="Оформите заказ, связавшись с нами">Сделать Заказ</a></button>
+                        <button type="button" class="btn btn-lg btn-block border-warning btn-primary"><a class="text-light" href="mailto:my_danny@mail.ru" target="_blank" title="Оформите заказ, связавшись с нами">Сделать Заказ</a></button>
                     </div>
-                    <p><a class="btn btn-secondary border-danger " href="{% url 'catalog:product' object.pk %}">Посмотреть &raquo;</a></p>
+                    <p><a class="btn btn-secondary border-warning " href="{% url 'catalog:product_detail' object.pk %}">Посмотреть &raquo;</a></p>
+                      <p><a class="btn btn-warning border-danger" href="{% url 'catalog:product_update' object.pk %}">Изменить &raquo;</a></p>
+                    <p><a class="btn btn-danger border-warning" href="{% url 'catalog:product_delete' object.pk %}">Удалить &raquo;</a></p>
                 </div>
             </div>
         </div>

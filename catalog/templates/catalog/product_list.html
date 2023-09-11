@@ -1,0 +1,19 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="col-12">
+        <a href="{% url 'catalog:product_create' %}" class="btn btn-primary border-info mx-3 m-12 mt-3">Создать продукт</a>
+    </div>
+
+
+{% for object in object_list %}
+    {% include 'catalog/includes/inc_product_card.html' %}
+{% endfor %}
+<div class="container">
+        <div class="row">
+            <div class="col-12 col-md">
+                В данном проекте используются настоящие объявления, взятые в учебных целях с сайта https://kwork.ru/categories/software  и  https://kwork.ru/categories/script-programming.
+            </div>
+       </div>
+    </div>
+{% endblock %}

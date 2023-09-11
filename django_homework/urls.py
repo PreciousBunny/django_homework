@@ -19,11 +19,13 @@ from django.contrib import admin
 from django.urls import path, include
 from catalog.views import *
 from django.conf import settings
-from django_homework import settings
+
+# from django_homework import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('catalog.urls', namespace='catalog')),
+    path('', include('blog.urls', namespace='blog')),
 ]
 
 if settings.DEBUG:

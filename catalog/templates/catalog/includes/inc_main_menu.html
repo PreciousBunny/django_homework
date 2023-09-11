@@ -1,4 +1,5 @@
 <nav class="ms-5">
-        <a  title="Здесь можно посмотреть каталог представленных товаров"  class="p-2 btn btn-outline-primary border-warning mx-1" href="{% url 'catalog:all_products' %}">Каталог</a>
+        <a  title="Здесь можно посмотреть каталог представленных товаров"  class="p-2 btn btn-outline-primary border-warning mx-1" href="{% url 'catalog:product_list' %}">Каталог</a>
         <a title="Свяжитесь с нами" class="p-2 btn btn-outline-primary border-warning" href="{% url 'catalog:contacts' %}">Контакты</a>
+        <a title="Поделись со Всеми своим мнением" class="p-2 btn btn-outline-primary border-warning mx-1" href="{% url 'blog:post_list' %}">Блог</a>
     </nav>

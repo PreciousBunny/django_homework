@@ -17,3 +17,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'description',)
     search_fields = ('name', 'description',)
     list_filter = ('name',)
+
+
+# admin.site.register(Product, ProductAdmin)
+# admin.site.register(Category, CategoryAdmin)

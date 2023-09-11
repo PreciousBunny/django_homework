@@ -1,10 +1,10 @@
 {% extends 'catalog/base.html' %}
-{% load mediapath %}
+{% load static %}
 
 {% block content %}
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">SkyStore</h1>
-    <p class="lead">SkyStore - это отличный вариант хранения ваших плагинов и примеров кода, который вы бы хотели
+    <h1 class="display-4 text-info">SkyStore</h1>
+    <p class="lead text-warning">SkyStore - это отличный вариант хранения ваших плагинов и примеров кода, который вы бы хотели
         продать</p>
 </div>
 
@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="col-9">
-        <img src="{% mediapath 'image/all_products.jpg' %}" alt="Картинка"  width="560" height="340"/>
+        <img src="{% static 'img/catalog/all_products.jpg' %}" alt="Картинка"  width="560" height="340"/>
 
                         </div>
                     </div>

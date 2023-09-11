@@ -7,6 +7,9 @@ NULLABLE = {'blank': True, 'null': True}
 
 
 class Category(models.Model):
+    """
+    Класс модели Категории продукта.
+    """
     name = models.CharField(max_length=150, verbose_name='Наименование')
     description = models.TextField(verbose_name='Описание')
 
@@ -16,13 +19,18 @@ class Category(models.Model):
 
 
     class Meta:
-        """Класс мета-настроек"""
+        """
+        Класс мета-настроек.
+        """
         verbose_name = 'категория'
         verbose_name_plural = 'категории'
         ordering = ('name', )  # сортировка, '-name' - сортировка в обратном порядке
 
 
 class Product(models.Model):
+    """
+    Класс модели Продукта.
+    """
     name = models.CharField(max_length=150, verbose_name='Наименование')
     description = models.TextField(verbose_name='Описание', **NULLABLE)
     image = models.ImageField(upload_to='image/', verbose_name='Изображение', **NULLABLE)
@@ -35,13 +43,16 @@ class Product(models.Model):
     is_active = models.BooleanField(default=True, verbose_name='Доработка программы под ваши требования')
 
     def __str__(self):
-        return f'{self.name}',  # {self.category}, {self.price}, {self.modification_date}'
+        return f'{self.name}'
+# {self.category}, {self.price}, {self.modification_date}'
     
     # def get_absolute_url(self):
-    #     return reverse('product', kwargs={'product_id': self.pk})
+    #     return reverse('product_detail', kwargs={'pk': self.pk})
 
     class Meta:
-        """Класс мета-настроек"""
+        """
+        Класс мета-настроек.
+        """
         verbose_name = 'программа'
         verbose_name_plural = 'программы'
         # ordering = ('name',)  # сортировка, '-name' - сортировка в обратном порядке

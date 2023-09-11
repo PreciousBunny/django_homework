@@ -12,33 +12,33 @@
 <!--                    <img src="{% mediapath 'image/all_products.jpg' %}" alt="Картинка"  width="560" height="340"/>-->
                     <tr>
                         <td>Наименование</td>
-                        <td>{{ title }}</td>
+                        <td>{{object.name}}</td>
                     </tr>
                     <tr>
                         <td>Описание</td>
-                        <td>{{ description|linebreaks }}</td>
+                        <td>{{ object.description|linebreaks }}</td>
                     </tr>
                     <tr>
                         <td>Категория</td>
-                        <td>{{ category }}</td>
+                        <td>{{ object.category }}</td>
                     </tr>
                     <tr>
                         <td>Цена</td>
-                        <td>{{ price }} руб</td>
+                        <td>{{ object.price }} руб</td>
                     </tr>
                     <tr>
                         <td>Дата создания</td>
-                        <td>{{ create_date }}</td>
+                        <td>{{ object.creation_date }}</td>
                     </tr>
                     <tr>
                         <td>Дата изменения</td>
-                        <td>{{ change_date }}</td>
+                        <td>{{ object.modification_date }}</td>
                     </tr>
                 </table>
             </div>
         </div>
         <div class="card-footer">
-            <a href="{% url 'catalog:all_products' %}" class="btn btn-primary border-info mx-1"><< Назад</a>
+            <a href="{% url 'catalog:product_list' %}" class="btn btn-primary border-info mx-1"><< Назад</a>
         </div>
     </div>
 {% endblock %}

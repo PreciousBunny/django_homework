@@ -16,9 +16,9 @@
 
                     </div>
                     {% if  object.published %}
-                        <a class="btn btn-danger" href="{% url 'blog:toggle_publish' object.slug %}" role="button">Деактивировать &raquo;</a>
+                        <a class="btn btn-danger" href="{% url 'blog:toggle_publish' object.slug %}" role="button">Deactivate &raquo;</a>
                     {% else %}
-                        <a class="btn btn-success" href="{% url 'blog:toggle_publish' object.slug %}" role="button">Активировать &raquo;</a>
+                        <a class="btn btn-success" href="{% url 'blog:toggle_publish' object.slug %}" role="button">Activate &raquo;</a>
                     {% endif %}
                 </div>
             </div>

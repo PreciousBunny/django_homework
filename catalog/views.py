@@ -80,29 +80,6 @@ class ProductDeleteView(DeleteView):
     success_url = reverse_lazy('catalog:product_list')
 
 
-# def all_products(request):
-#     context = {
-#         'object_list': Product.objects.all(),
-#         'title': 'Каталог',
-#     }
-#
-#     return render(request, 'catalog/product_list.html', context=context)
-
-
-# def product(request, product_id=None):
-#     product_item = Product.objects.get(pk=product_id)
-#     context = {
-#         'title': product_item.name,
-#         'description': product_item.description,
-#         'category': product_item.category,
-#         'price': product_item.price,
-#         'create_date': product_item.creation_date,
-#         'change_date': product_item.modification_date
-#     }
-#
-#     return render(request, 'catalog/product_detail.html', context=context)
-
-
 def pageNotFound(request, exception):
     """
     Функция для корректного отображения страницы при ошибке Http404 (pageNotFound).

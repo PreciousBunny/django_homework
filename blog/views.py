@@ -14,8 +14,8 @@ class PostListView(ListView):
         'title': 'Все записи',  # дополнение к статической информации
     }
 
-    def get_queryset(self, *args, **kwargs):
-        queryset = super().get_queryset(*args, **kwargs)
+    def get_queryset(self):
+        queryset = super().get_queryset()
         queryset = queryset.filter(published=True)
         return queryset
 
@@ -23,25 +23,15 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
 
-    # def get_object(self, queryset=None):
-    #     self.object = super().get_object(queryset=queryset)
-    #     self.object.view_count += 1
-    #     self.object.save()
-    #     return self.object
-
-    def get_context_data(self, **kwargs):
-        context_data = super().get_context_data(**kwargs)
-        context_data['title'] = self.get_object()
-        obj = self.get_object()
-        increase = get_object_or_404(Post, pk=obj.pk)  # увеличение количества просмотров
-        increase.increase_views()
-        return context_data
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        obj.increase_views()
+        return obj
 
 
 class PostCreateView(CreateView):
     model = Post
     fields = ('name', 'content', 'image', 'published')
-    # fields = ('name', 'slug', 'content', 'image', 'published')
     success_url = reverse_lazy('blog:post_list')
 
     def form_valid(self, form):
@@ -53,16 +43,6 @@ class PostCreateView(CreateView):
         return super().form_valid(form)
 
 
-# class PostUpdateView(UpdateView):
-#     model = Post
-#
-#     fields = ('name', 'slug', 'content', 'image', 'published')
-#     success_url = reverse_lazy('blog:post_list')
-#
-#     def get_success_url(self):
-#         return self.object.get_absolute_url()
-
-
 class PostDeleteView(DeleteView):
     model = Post
     success_url = reverse_lazy('blog:post_list')
@@ -71,7 +51,6 @@ class PostDeleteView(DeleteView):
 class PostUpdateView(UpdateView):
     model = Post
     fields = ('name', 'content', 'image', 'published')
-    # fields = ('name', 'slug', 'content', 'image', 'published')
 
     def form_valid(self, form):
         if form.is_valid():
@@ -83,7 +62,6 @@ class PostUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('blog:post_detail', args=[str(self.object.slug)])
-        # return reverse('blog:post_detail', args=[str(self.object.slug)])
 
 
 def toggle_publish(request, slug):
@@ -99,3 +77,10 @@ def toggle_publish(request, slug):
     post_detail.save()
 
     return redirect(reverse('blog:post_list'))
+
+
+class PostAllListView(ListView):
+    model = Post
+    extra_context = {
+        'title': 'Все записи',  # дополнение к статической информации
+    }

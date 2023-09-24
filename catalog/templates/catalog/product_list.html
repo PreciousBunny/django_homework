@@ -4,8 +4,15 @@
 <div class="col-12">
         <a href="{% url 'catalog:product_create' %}" class="btn btn-primary border-info mx-3 m-12 mt-3">Создать продукт</a>
     </div>
+ <figure class=" p-3 mb-0" style="color:#00ffff">
+{% for version in version_list %}
+        <h6> Активная версия: {{ version.title_version }}</h6>
+        <h6> Номер версии: {{ version.number_version }}</h6>
+        <h6> Продукт версии: {{ version.product }}</h6>
+     <p>----------</p>
 
-
+    {% endfor %}
+</figure>
 {% for object in object_list %}
     {% include 'catalog/includes/inc_product_card.html' %}
 {% endfor %}

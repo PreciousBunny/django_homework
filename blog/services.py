@@ -7,7 +7,7 @@ from blog.models import Post
 def send_post_email(post_item: Post):
     send_mail(
         f'Пост {post_item.name} набрал необходимое количество просмотров ',
-        'Поздравляю! Ваша запись пользуется популярностью!',
+        'Поздравляем! Ваша запись пользуется популярностью!',
         settings.EMAIL_HOST_USER,
         recipient_list=['my_danny@mail.ru']  # [user.email]
     )

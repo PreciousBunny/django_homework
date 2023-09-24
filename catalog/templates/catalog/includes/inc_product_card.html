@@ -14,6 +14,16 @@
                         </ul>
                         <button type="button" class="btn btn-lg btn-block border-warning btn-primary"><a class="text-light" href="mailto:my_danny@mail.ru" target="_blank" title="Оформите заказ, связавшись с нами">Сделать Заказ</a></button>
                     </div>
+                     <ul class="list-unstyled mt-3 mb-4 text-start m-5">
+
+                            {% for version in object.version_set.all %}
+                                 {% if version.is_active %}
+
+                                    <div><strong>Активная версия: </strong> {{ version.number_version}} - {{ version.title_version}}</div>
+                                 {% endif %}
+                            {% endfor %}
+
+                        </ul>
                     <p><a class="btn btn-secondary border-warning " href="{% url 'catalog:product_detail' object.pk %}">Посмотреть &raquo;</a></p>
                       <p><a class="btn btn-warning border-danger" href="{% url 'catalog:product_update' object.pk %}">Изменить &raquo;</a></p>
                     <p><a class="btn btn-danger border-warning" href="{% url 'catalog:product_delete' object.pk %}">Удалить &raquo;</a></p>

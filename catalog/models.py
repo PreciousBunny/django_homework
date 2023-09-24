@@ -15,8 +15,6 @@ class Category(models.Model):
 
     def __str__(self):
         return f'{self.name}  ( {self.description} )'
-    
-
 
     class Meta:
         """
@@ -24,7 +22,7 @@ class Category(models.Model):
         """
         verbose_name = 'категория'
         verbose_name_plural = 'категории'
-        ordering = ('name', )  # сортировка, '-name' - сортировка в обратном порядке
+        ordering = ('name',)  # сортировка, '-name' - сортировка в обратном порядке
 
 
 class Product(models.Model):
@@ -44,8 +42,9 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.name}'
-# {self.category}, {self.price}, {self.modification_date}'
-    
+
+    # {self.category}, {self.price}, {self.modification_date}'
+
     # def get_absolute_url(self):
     #     return reverse('product_detail', kwargs={'pk': self.pk})
 
@@ -57,3 +56,23 @@ class Product(models.Model):
         verbose_name_plural = 'программы'
         # ordering = ('name',)  # сортировка, '-name' - сортировка в обратном порядке
         ordering = ('name', 'category', 'price', 'modification_date',)
+
+
+class Version(models.Model):
+    """
+    Класс модели Версии Продукта.
+    """
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
+    number_version = models.IntegerField(verbose_name='Номер версии')
+    title_version = models.CharField(max_length=150, verbose_name='Название версии')
+    is_active = models.BooleanField(verbose_name='Активная версия', default=True)
+
+    def __str__(self):
+        return f'{self.number_version} ({self.product})'
+
+    class Meta:
+        """
+        Класс мета-настроек.
+        """
+        verbose_name = 'версия'
+        verbose_name_plural = 'версии'

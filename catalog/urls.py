@@ -7,10 +7,9 @@ app_name = CatalogConfig.name
 
 
 urlpatterns = [
-    path('', index, name='home'),  # http://127.0.0.1:8000/
-    path('contacts', contacts, name='contacts'),  # http://127.0.0.1:8000/contacts/
-    # path('products', all_products, name='product_list'),
-    # path('products/<int:product_id>', product, name='product_detail'),
+    path('', IndexView.as_view(), name='home'),  # http://127.0.0.1:8000/
+    path('contacts', ContactView.as_view(), name='contacts'),  # http://127.0.0.1:8000/contacts/
+    path('categories', CategoriesListView.as_view(), name='categories_list'),
     path('products', ProductListView.as_view(), name='product_list'),
     path('products/<int:pk>', ProductDetailView.as_view(), name='product_detail'),
     path('products/create/', ProductCreateView.as_view(), name='product_create'),

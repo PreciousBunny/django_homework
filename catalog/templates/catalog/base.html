@@ -11,26 +11,27 @@
 <body>
     <div class="header-blue">
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-dark border-bottom border-warning box-shadow">
- <h5 title="Вернуться на главную страницу" class="my-0 mr-md-auto font-weight-normal p-0"><a href="{% url 'catalog:home' %}"><div class="logo"></div></a></h5>
+ <h5 title="Вернуться на главную страницу" class="my-0 mr-md-auto font-weight-normal p-0"><a href="/"><div class="logo"></div></a></h5>
         {% include 'catalog/includes/inc_main_menu.html' %}
     <!-- ШАБЛОННЫЙ ТЕГ include вставляет отдельный html из файла 'inc_main_menu.html' -->
 </div>
-
+   <div class="header-blue">
 {% block content %}
 
 
 {% endblock %}
+<!--   <div class="header-blue">-->
 
 <div class="container">
 
     <footer class="pt-4 my-md-5 pt-md-5 border-top border-warning">
         <div class="row">
-            <div class="col-12 col-md">
+            <div style="color:#c0c0c0" class="col-12 col-md ">
                 SkyStore
-                <small class="d-block mb-3 text-muted">&copy; 2023</small>
+                <small style="color:#c0c0c0" class="d-block mb-3">&copy; 2023</small>
             </div>
-            <div class="col-6 col-md">
-                <h5> <a href="{% url 'catalog:categories_list' %}"> Категории </a></h5>
+            <div class="col-6 col-md ">
+                <h5> <a style="color:#c0c0c0" href="{% url 'catalog:categories_list' %}"> Категории </a></h5>
 <!--                <ul class="list-unstyled text-small">-->
 <!--                    <li><a class="text-muted" href="#">Рассылки</a></li>-->
 <!--                    <li><a class="text-muted" href="#">Телеграм боты</a></li>-->
@@ -39,23 +40,43 @@
 <!--                    <li><a class="text-muted" href="#">Микросервисы</a></li>-->
 <!--                </ul>-->
             </div>
-            <div class="col-6 col-md">
+            <div style="color:#c0c0c0" class="col-6 col-md ">
                 <h5>Дополнительно</h5>
                 <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Мы пишем</a></li>
+                    <li><a style="color:#c0c0c0" href="#">Мы пишем</a></li>
                 </ul>
             </div>
-            <div class="col-6 col-md">
+            <div style="color:#c0c0c0" class="col-6 col-md ">
                 <h5>О нас</h5>
                 <ul class="list-unstyled text-small">
-                    <li><a title="Свяжитесь с нами" class="text-muted" href="/contacts/">Контакты</a></li>
+                    <li><a title="Свяжитесь с нами" style="color:#c0c0c0" href="/contacts/">Контакты</a></li>
                 </ul>
             </div>
         </div>
 
     </footer>
 </div>
+
     </div>
+              </div>
+     <style>
+        .btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+  </style>
 <script src="/static/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,8 +1,14 @@
 {% extends 'catalog/base.html' %}
 
 {% block content %}
+
+{% if user.is_authenticated  or user.is_superuser %}
 <div class="col-12">
         <a href="{% url 'catalog:product_create' %}" class="btn btn-primary border-info mx-3 m-12 mt-3">Создать продукт</a>
+      {% endif %}
+     {% if perms.catalog.can_change_product or user.is_superuser %}
+    <a href="{% url 'catalog:all_products' %}" class="btn btn-primary border-info mx-3 m-12 mt-3">Показать все продукты</a>
+      {% endif %}
     </div>
  <figure class=" p-3 mb-0" style="color:#00ffff">
 {% for version in version_list %}
@@ -13,12 +19,22 @@
 
     {% endfor %}
 </figure>
+     <div class="container">
+    {% if object_list %}
+        <div class="row text-center">
 {% for object in object_list %}
     {% include 'catalog/includes/inc_product_card.html' %}
 {% endfor %}
+  </div>
+  {% else %}
+        <h3 style="color:#FF8C00">Нет доступных программных продуктов</h3>
+    <h3 style="color:#FF8C00">:-(</h3>
+    {% endif %}
+  </div>
+<p></p>
 <div class="container">
         <div class="row">
-            <div class="col-12 col-md">
+            <div style="color:#c0c0c0" class="col-12 col-md ">
                 В данном проекте используются настоящие объявления, взятые в учебных целях с сайта https://kwork.ru/categories/software  и  https://kwork.ru/categories/script-programming.
             </div>
        </div>

@@ -8,6 +8,7 @@
                         <h4 class="my-0 font-weight-normal">{{object.name}}</h4>
                     </div>
                     <div class="card-body">
+                        <h5 class="card-title pricing-card-title"> {{object.category}}</h5>
                         <h5 class="card-title pricing-card-title"> {{object.price}} ₽</h5>
                         <ul class="list-unstyled mt-3 mb-6 text-center">
                             <li>{{object.description|slice:":100"}}</li>
@@ -24,10 +25,21 @@
                             {% endfor %}
 
                         </ul>
-                    <p><a class="btn btn-secondary border-warning " href="{% url 'catalog:product_detail' object.pk %}">Посмотреть &raquo;</a></p>
-                      <p><a class="btn btn-warning border-danger" href="{% url 'catalog:product_update' object.pk %}">Изменить &raquo;</a></p>
-                    <p><a class="btn btn-danger border-warning" href="{% url 'catalog:product_delete' object.pk %}">Удалить &raquo;</a></p>
+                    <p><a class="btn btn-secondary border-warning " href="{% url 'catalog:product_detail' object.pk %}">Посмотреть &raquo;</a>
+                  {% if user.is_authenticated and object.user == user.email or perms.catalog.can_change_product or user.is_superuser%}
+                    <a class="btn btn-warning border-danger" href="{% url 'catalog:product_update' object.pk %}">Изменить &raquo;</a>
+                   {% endif %}
+                        {% if user.is_superuser %}
+                    <a class="btn btn-danger border-warning" href="{% url 'catalog:product_delete' object.pk %}">Удалить &raquo;</a></p>
+                {% endif %}
                 </div>
+                {% if perms.catalog.can_change_product or user.is_superuser %}
+                    {% if  object.is_published %}
+                        <a class="btn btn-danger" href="{% url 'catalog:toggle_publish' object.pk %}" role="button">Снять с публикации &raquo;</a>
+                    {% else %}
+                        <a class="btn btn-success" href="{% url 'catalog:toggle_publish' object.pk %}" role="button">Опубликовать &raquo;</a>
+                    {% endif %}
+                    {% endif %}
             </div>
         </div>
     </div>

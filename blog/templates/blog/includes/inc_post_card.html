@@ -11,14 +11,19 @@
                         </ul>
                         <p><img src="{% mediapath object.image %}" width="250" height="190" alt="Картинка"></p>
                         <p><a class="btn btn-secondary" href="{% url 'blog:post_detail' object.slug %}" role="button">Посмотреть &raquo</a></p>
+                        {% if user.is_authenticated and object.user == user.email or perms.blog.can_change_post or user.is_superuser%}
                         <p><a class="btn btn-warning" href="{% url 'blog:post_update' object.slug %}" role="button">Изменить &raquo;</a></p>
+                         {% endif %}
+                        {% if user.is_superuser %}
                         <p><a class="btn btn-danger" href="{% url 'blog:post_delete' object.slug %}" role="button">Удалить &raquo;</a></p>
-
+                        {% endif %}
                     </div>
-                    {% if  object.published %}
+                    {% if perms.blog.can_change_post or user.is_superuser %}
+                    {% if  object.is_published %}
                         <a class="btn btn-danger" href="{% url 'blog:toggle_publish' object.slug %}" role="button">Deactivate &raquo;</a>
                     {% else %}
                         <a class="btn btn-success" href="{% url 'blog:toggle_publish' object.slug %}" role="button">Activate &raquo;</a>
+                    {% endif %}
                     {% endif %}
                 </div>
             </div>

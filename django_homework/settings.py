@@ -40,9 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # 'catalog.apps.CatalogConfig',
-    'catalog',
-    'blog',
+    'catalog.apps.CatalogConfig',
+    'blog.apps.BlogConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -161,3 +161,13 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")      # берет из .env
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")      # берет из .env
 EMAIL_USE_TLS = False            # у gmail наоборот True
 EMAIL_USE_SSL = True             # у gmail наоборот False
+
+
+
+# Настройки для работы с моделью пользователя
+AUTH_USER_MODEL = 'users.User'  # переопределяет авторизацию
+LOGIN_REDIRECT_URL = '/'  # перенаправление login
+LOGOUT_REDIRECT_URL = '../'  # перенаправление logout
+
+# URL для авторизации
+LOGIN_URL = '/users/'  # вход login_url='/users/'

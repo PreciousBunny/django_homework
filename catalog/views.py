@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory, formset_factory
 
 from django.http import HttpResponse, HttpResponseNotFound, request
@@ -51,13 +52,20 @@ class ProductListView(ListView):
     """
     model = Product
     extra_context = {
-        'object_list': Product.objects.all(),
+        # 'object_list': Product.objects.all(),
         'version_list': Version.objects.filter(is_active=True),
-        'title': 'Каталог программных продуктов',
+        'title': 'Каталог программных продуктов SkyStore',
     }
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(is_published=True)
+        if self.request.user.has_perm('catalog.can_change_product'):
+            return queryset
+        return queryset
 
-class ProductDetailView(DetailView):
+
+class ProductDetailView(LoginRequiredMixin, DetailView):
     """
     Класс для получения деталей (единиц) модели Продуктов.
     """
@@ -69,7 +77,7 @@ class ProductDetailView(DetailView):
         return context_data
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     """
     Класс создания новых единиц продуктов для модели Продуктов.
     """
@@ -78,6 +86,11 @@ class ProductCreateView(CreateView):
     # fields = ('name', 'description', 'image', 'category', 'price')
     success_url = reverse_lazy('catalog:product_list')
 
+    def form_valid(self, form):
+        """Метод добавления создателя продукта"""
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         VersionFormSet = formset_factory(VersionForm, extra=1)
@@ -85,7 +98,7 @@ class ProductCreateView(CreateView):
         return context
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     """
     Класс для обновления единиц продуктов для модели Продуктов.
     """
@@ -116,7 +129,7 @@ class ProductUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     """
     Класс для удаления единиц продуктов из модели Продуктов.
     """
@@ -124,7 +137,29 @@ class ProductDeleteView(DeleteView):
     success_url = reverse_lazy('catalog:product_list')
 
 
-class VersionListView(ListView):
+def toggle_publish(request, pk):
+    """
+    Функция переключения публикации программных продуктов.
+    """
+    product_detail = get_object_or_404(Product, pk=pk)
+    if product_detail.is_published:
+        product_detail.is_published = False
+    else:
+        product_detail.is_published = True
+
+    product_detail.save()
+
+    return redirect(reverse('catalog:product_detail', args=[product_detail.pk]))
+
+
+class ProductAllListView(LoginRequiredMixin, ListView):
+    model = Product
+    extra_context = {
+        'title': 'Все программные продукты SkyStore',  # дополнение к статической информации
+    }
+
+
+class VersionListView(LoginRequiredMixin, ListView):
     model = Version
     extra_context = {
         'object_list': Version.objects.filter(is_active=True),
@@ -132,13 +167,13 @@ class VersionListView(ListView):
     }
 
 
-class VersionUpdateView(UpdateView):
+class VersionUpdateView(LoginRequiredMixin, UpdateView):
     model = Version
     form_class = VersionForm
     success_url = reverse_lazy('catalog:product_list')
 
 
-class VersionDetailView(DetailView):
+class VersionDetailView(LoginRequiredMixin, DetailView):
     model = Version
 
     def get_context_data(self, **kwargs):

@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 
+from users.models import User
+
 # Create your models here.
 
 NULLABLE = {'blank': True, 'null': True}
@@ -15,8 +17,11 @@ class Post(models.Model):
     content = models.TextField(verbose_name='Содержимое')
     image = models.ImageField(upload_to='post/', verbose_name='Изображение', **NULLABLE)
     creation_date = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True)
-    published = models.BooleanField(verbose_name='Признак публикации', default=True)
+    is_published = models.BooleanField(verbose_name='Признак публикации', default=True)
     view_count = models.PositiveIntegerField(verbose_name='Количество просмотров', default=0)
+    user = models.CharField(max_length=50, verbose_name='Создатель', **NULLABLE)
+    created_by = models.ForeignKey('users.User', verbose_name='Автор', on_delete=models.CASCADE, related_name='post',
+                                   **NULLABLE)
 
     def __str__(self):
         return f'{self.name}'
@@ -28,6 +33,12 @@ class Post(models.Model):
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
         ordering = ('name', 'slug', '-creation_date',)
+        permissions = [
+            (
+                'can_change_post',
+                'Can change post'
+            ),
+        ]
 
     def increase_views(self):
         """

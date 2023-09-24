@@ -37,6 +37,9 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='Цена за покупку')
     creation_date = models.DateField(verbose_name='Дата создания', auto_now_add=True)
     modification_date = models.DateField(verbose_name='Дата последнего изменения', auto_now=True)
+    user = models.CharField(max_length=50, verbose_name='Создатель', **NULLABLE)
+    # created_by = models.ForeignKey('users.User', verbose_name='Кем создано', on_delete=models.CASCADE, **NULLABLE)
+    is_published = models.BooleanField(verbose_name='Признак публикации', default=False)
 
     is_active = models.BooleanField(default=True, verbose_name='Доработка программы под ваши требования')
 
@@ -45,17 +48,22 @@ class Product(models.Model):
 
     # {self.category}, {self.price}, {self.modification_date}'
 
-    # def get_absolute_url(self):
-    #     return reverse('product_detail', kwargs={'pk': self.pk})
+    def get_absolute_url(self):
+        return reverse('catalog:product_detail', kwargs={'pk': self.pk})
 
     class Meta:
         """
         Класс мета-настроек.
         """
-        verbose_name = 'программа'
-        verbose_name_plural = 'программы'
-        # ordering = ('name',)  # сортировка, '-name' - сортировка в обратном порядке
+        verbose_name = 'программный продукт'
+        verbose_name_plural = 'программные продукты'
         ordering = ('name', 'category', 'price', 'modification_date',)
+        permissions = [
+            (
+                'can_change_product',
+                'Can change product'
+            ),
+        ]
 
 
 class Version(models.Model):

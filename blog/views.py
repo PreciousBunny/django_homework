@@ -4,7 +4,7 @@ from django.urls import reverse_lazy, reverse
 from pytils.translit import slugify
 
 from blog.models import Post
-
+from blog.services import send_post_email
 
 # Create your views here.
 
@@ -26,6 +26,8 @@ class PostDetailView(DetailView):
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
         obj.increase_views()
+        if obj.view_count == 100:
+            send_post_email(obj)
         return obj
 
 

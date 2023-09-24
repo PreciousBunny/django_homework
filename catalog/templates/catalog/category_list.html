@@ -1,0 +1,11 @@
+{% extends 'catalog/base.html' %}  <!-- Выводит базовый html (верхняя, базовая часть сайта) -->
+
+{% block content %}  <!-- ШАБЛОННЫЙ ТЕГ for content -->
+<figure class=" p-3 mb-0" style="color:#00ffff">
+    {% for category in object_list %}
+        <h6> Название категории: {{ category.name }}</h6>
+        <h6> Описание: {{ category.description }}</h6>
+         <p>----------</p>
+    {% endfor %}
+    </figure>
+{% endblock %}   <!-- закрытие ШАБЛОННЫЙ ТЕГ for content -->

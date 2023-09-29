@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
 ROOT_URLCONF = 'django_homework.urls'
@@ -171,3 +173,17 @@ LOGOUT_REDIRECT_URL = '../'  # перенаправление logout
 
 # URL для авторизации
 LOGIN_URL = '/users/'  # вход login_url='/users/'
+
+
+
+# Настройки кеширования
+CACHE_ENABLED = os.getenv('CACHE_ENABLED')
+
+if CACHE_ENABLED:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            # "LOCATION": "redis://127.0.0.1:6379",
+            "LOCATION": os.getenv('CACHE_LOCATION'),
+        }
+    }

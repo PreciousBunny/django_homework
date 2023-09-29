@@ -18,7 +18,7 @@ class UserForm(FormStyleMixin, UserChangeForm):
 
     def __init__(self, *args, **kwargs):
         """
-        Метод инициализирует сокрытие пароля при вводе.
+        Метод инициализирует сокрытие пароля.
         """
         super().__init__(*args, **kwargs)
         self.fields['password'].widget = forms.HiddenInput()

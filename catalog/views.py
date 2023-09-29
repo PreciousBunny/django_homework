@@ -8,6 +8,7 @@ from django.urls import reverse_lazy, reverse
 
 from catalog.forms import ProductForm, VersionForm
 from catalog.models import Product, Version, Category
+from catalog.services import get_category_product_from_cashe
 
 
 # Create your views here.
@@ -28,7 +29,7 @@ class ContactView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         """
-        Функция реализует обработку сбора обратной связи от пользователя, который зашел на страницу контактов и отправил
+        Метод реализует обработку сбора обратной связи от пользователя, который зашел на страницу контактов и отправил
         свои данные для обратной связи.
         """
         name = request.POST.get('name', '')
@@ -45,6 +46,11 @@ class CategoriesListView(ListView):
         'object_list': Category.objects.all()
     }
 
+    def get_context_data(self, **kwargs):  # меняет title на __str__.object (категория продукта)
+        context_data = super().get_context_data(**kwargs)
+        context_data['subject_list'] = get_category_product_from_cashe  # логика вынесена в services.py
+        return context_data
+
 
 class ProductListView(ListView):
     """
@@ -52,7 +58,6 @@ class ProductListView(ListView):
     """
     model = Product
     extra_context = {
-        # 'object_list': Product.objects.all(),
         'version_list': Version.objects.filter(is_active=True),
         'title': 'Каталог программных продуктов SkyStore',
     }
